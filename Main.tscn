@@ -1,0 +1,110 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://Mouse.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Return.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Info.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Exit.tscn" type="PackedScene" id=5]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 10, 0.5, 5 )
+
+[sub_resource type="CylinderMesh" id=2]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 4.0
+
+[node name="Spatial" type="Spatial"]
+script = ExtResource( 1 )
+speed = 3.0
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 8 )
+current = true
+fov = 75.0
+
+[node name="Base" type="CSGMesh" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0 )
+mesh = SubResource( 1 )
+
+[node name="Towers" type="Spatial" parent="."]
+
+[node name="Start" type="MeshInstance" parent="Towers"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.875, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Work" type="MeshInstance" parent="Towers"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.875, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="End" type="MeshInstance" parent="Towers"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.875, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control"]
+anchor_left = 0.416
+anchor_top = 0.874
+anchor_right = 0.608
+anchor_bottom = 1.0
+margin_left = 0.203979
+margin_top = -20.674
+margin_right = -153.404
+margin_bottom = -82.2741
+text = "Speed:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSlider" type="HSlider" parent="Control"]
+anchor_left = 0.416
+anchor_top = 0.874
+anchor_right = 0.608
+anchor_bottom = 1.0
+margin_left = 0.203979
+margin_top = -0.092041
+margin_right = -0.404053
+margin_bottom = -59.6921
+min_value = 1.0
+value = 1.0
+
+[node name="Sprite" parent="Control" instance=ExtResource( 2 )]
+
+[node name="Exit" parent="Control" instance=ExtResource( 5 )]
+anchor_left = 0.916
+anchor_bottom = 0.083
+margin_left = 0.291931
+margin_top = 0.0
+margin_right = -35.7241
+margin_bottom = 0.199997
+
+[node name="Return" parent="Control" instance=ExtResource( 3 )]
+anchor_left = 0.869
+anchor_bottom = 0.083
+margin_left = 0.419983
+margin_top = 0.0
+margin_right = -83.7241
+margin_bottom = 0.199997
+
+[node name="Info" parent="Control" instance=ExtResource( 4 )]
+anchor_left = 0.821
+anchor_bottom = 0.083
+margin_left = -0.42804
+margin_top = 0.0
+margin_right = -133.724
+margin_bottom = 0.199997
+[connection signal="value_changed" from="Control/HSlider" to="." method="_on_HSlider_value_changed"]
+[connection signal="pressed" from="Control/Exit" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="Control/Return" to="." method="_on_Return_pressed"]
+[connection signal="pressed" from="Control/Info" to="." method="_on_Info_pressed"]

@@ -1,0 +1,14 @@
+[gd_scene format=2]
+
+[node name="Disc" type="Spatial"]
+
+[node name="CSGCombiner" type="CSGCombiner" parent="."]
+
+[node name="OuterCylinder" type="CSGCylinder" parent="CSGCombiner"]
+height = 0.25
+sides = 16
+
+[node name="InnerCylinder" type="CSGCylinder" parent="CSGCombiner"]
+operation = 2
+radius = 0.2
+height = 0.26
